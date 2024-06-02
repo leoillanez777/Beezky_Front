@@ -1,0 +1,28 @@
+<div class="my-10 mx-8">
+  <div class="flex flex-col gap-4">
+    <p class="text-3xl font-semibold text-gray-700">
+      Verificado
+    </p>
+    <div>
+      
+    </div>
+    <p class="mt-6 text-lg leading-8 text-gray-600">
+      <p-avatar icon="pi pi-check-circle" styleClass="mr-2 me-2 bg-green-500 text-white" size="xlarge" shape="circle"></p-avatar>
+      Has verificado correctamente tu cuenta.
+    </p>
+    <p>
+      <span class="inline-flex items-center rounded-md bg-gray-50 px-8 py-1 text-lg font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"> {{ email }} </span>
+    </p>
+    <div *ngIf="!loading; else loadingSpinner" class="my-4 text-center">
+      <button (click)="onLogin()" pButton pRipple type="button" 
+        label="Ingrese a su cuenta" icon="pi pi-user" iconPos="right" class="p-button-raised p-button-success" title="Ingresar">
+      </button>
+    </div>
+    <ng-template #loadingSpinner>
+      <div class="flex justify-center my-4">
+        <p-progressSpinner styleClass="!w-8 !h-8" strokeWidth="8"></p-progressSpinner>
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+      </div>
+    </ng-template>
+  </div>
+</div>

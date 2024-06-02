@@ -1,0 +1,110 @@
+<div class="mt-10">
+  <ol class="relative border-s border-gray-200">
+    <li class="mb-10 ms-6">
+      <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white">
+        <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 19h16m-8 0V5m0 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM4 8l-2.493 5.649A1 1 0 0 0 2.443 15h3.114a1.001 1.001 0 0 0 .936-1.351L4 8Zm0 0V6m12 2-2.493 5.649A1 1 0 0 0 14.443 15h3.114a1.001 1.001 0 0 0 .936-1.351L16 8Zm0 0V6m-4-2.8c3.073.661 3.467 2.8 6 2.8M2 6c3.359 0 3.192-2.115 6.012-2.793" />
+        </svg>
+      </span>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+        <div class="items-center justify-between mb-3 sm:flex">
+          <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">2</time>
+          <div class="text-xl font-semibold text-gray-500 lex dark:text-gray-300">Cuentas Asociadas</div>
+        </div>
+        <section class="bg-gray-50 dark:bg-gray-900">
+          <div class="w-full">
+            <div class="bg-white relative shadow-md sm:rounded-lg overflow-hidden">
+              
+              <p-table #dtAccount [value]="dataSourceAccount" [tableStyle]="{ 'min-width': '50rem' }" 
+                responsiveLayout="stack" [loading]="loadingArray[0]" styleClass="w-full" tableStyleClass="w-full">
+                <ng-template pTemplate="caption">
+                  <div class="flex justify-between">
+                      <p-button label="Limpiar" icon="pi pi-filter-slash" styleClass="p-button-sm p-button-outlined mt-2 !py-2.5" (click)="clearAccountFilter()"></p-button>
+                      <div class="relative mt-2 mx-4 sm:mx-20 grow rounded-md shadow-sm">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                          <i class="pi pi-search"></i>
+                        </span>
+                        <input pInputText type="text" (input)="filterAccounts($event)" placeholder="Buscar..." class="w-full rounded-lg py-2 pl-8" />
+                      </div>
+                      
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                  <tr>
+                      <th><span class="font-sans text-xs">DESCRIPCIÓN</span></th>
+                      <th><span class="font-sans text-xs">PRODUCTO</span></th>
+                      <th><span class="font-sans text-xs">SALDO</span></th>
+                      <th><span class="font-sans text-xs">TRANSFERIR</span></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                  <tr>
+                      <td><span class="p-column-title"><span class="font-bold">Descripción:</span> {{ product.netBalance.currency }} - {{ product.label }}</span> {{ product.netBalance.currency }} - {{ product.label }}</td>
+                      <td><span class="p-column-title"><span class="font-bold">Producto:</span> {{ product.accountId }}</span> {{ product.accountId }}</td>
+                      <td><span class="p-column-title"><span class="font-bold">Saldo:</span> {{ product.netBalance.amount }}</span> {{ product.netBalance.amount }}</td>
+                      <td class="text-center">
+                        <button (click)="gotoTransfer()" pButton type="button" class="p-button-rounded p-button-sm p-button-plain p-button-text" icon="pi pi-chevron-right" title="Transferir"></button>
+                      </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </li>
+    <li class="mb-10 ms-6">
+      <span
+        class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 20 16">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1M2 5h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z" />
+        </svg>
+      </span>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+        <div class="items-center justify-between mb-3 sm:flex">
+          <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"></time>
+          <div class="text-sm font-normal text-gray-500 lex dark:text-gray-300">Prestamos</div>
+        </div>
+        <div
+          class="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">
+          En contrucción
+        </div>
+      </div>
+    </li>
+    <li class="ms-6">
+      <span
+        class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 17 18">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 12v5m5-9v9m5-5v5m5-9v9M1 7l5-6 5 6 5-6" />
+        </svg>
+      </span>
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+        <div class="items-center justify-between mb-3 sm:flex">
+          <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"></time>
+          <h3 class="font-normal text-gray-500 lex dark:text-gray-300">Balance</h3>
+        </div>
+        <div class="grid grid-cols-1 divide-y gap-6">
+          <div class="flex justify-between">
+            <span>Total activos</span>
+            <span>81.50 USD</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Total pasivos</span>
+            <span>4,691.79 USD</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold">Posición Neta</span>
+            <span class="font-bold">-4,610.29 USD</span>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+
+
+</div>

@@ -1,0 +1,70 @@
+<div class="mt-8 shadow-2xl flex w-full bg-white flex-col justify-center px-1 sm:px-6 lg:px-8 rounded-lg">
+    <p-toast></p-toast>
+    <div class="bg-white my-10">
+        <h1 class="font-sans font-medium text-2xl">Transferencias</h1>
+        <mat-divider></mat-divider>
+
+        <form [formGroup]="_TranferForm" (ngSubmit)="SendTransfer()" class="mt-8 font-sans font-medium">
+
+            <div class="grid grid-cols-6 gap-4">
+                <div class="col-span-6 sm:col-span-3">
+                    <div class="w-full">
+                        <label for="CuentaOrigen" class="block mb-2"> Cuenta Origen </label>
+                        <p-dropdown inputId="CuentaOrigen" formControlName="CuentaOrigen" [options]="_accountList" optionLabel="accountNumber" 
+                          optionValue="accountNumber" styleClass="w-full p-1 text-lg" [showClear]="true" placeholder="Cuenta Origen">
+                            <ng-template let-account pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <div>{{ account?.currency }} - {{ account?.accountNumber }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <div class="w-full">
+                        <label for="CuentaDestino" class="block mb-2"> Cuenta Destino </label>
+                        <input type="text" pInputText formControlName="CuentaDestino" placeholder="0000" id="CuentaDestino"
+                            class="rounded-lg w-full p-4 text-lg" />
+                    </div>
+                </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <div class="w-full">
+                        <label for="DebitDescrip" class="block mb-2"> Descripción del Débito </label>
+                        <input type="text" pInputText formControlName="DebitDescrip" placeholder="Descripción del Débito" id="DebitDescrip"
+                            class="rounded-lg w-full p-4 text-lg" />
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <div class="w-full">
+                        <label for="CreditoDescrip" class="block mb-2"> Descripción del Crédito </label>
+                        <input type="text" pInputText formControlName="CreditoDescrip" placeholder="Descripción del Crédito" id="CreditoDescrip"
+                            class="rounded-lg w-full p-4 text-lg" />
+                    </div>
+                </div>
+                <div class="col-span-6 sm:col-span-4 sm:col-start-2">
+                    <div class="w-full">
+                        <label for="Monto" class="font-medium block mb-2"> Monto </label>
+                        <p-inputNumber formControlName="Monto" inputId="Monto" mode="currency" currency="USD" locale="en-US"
+                            styleClass="rounded-lg w-full text-lg" inputStyleClass="p-4 w-full" [showButtons]="true" class="w-full">
+                        </p-inputNumber>
+                    </div>
+                </div>
+
+                <div class="col-span-6 text-center font-medium font-sans">
+                    <button type="submit" [disabled]="_TranferForm.invalid"
+                        class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+                        <svg class="w-5 h-5 text-white me-2"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 14 3-3m-3 3 3 3m-3-3h16v-3m2-7-3 3m3-3-3-3m3 3H3v3" />
+                        </svg>
+                        Transferir
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

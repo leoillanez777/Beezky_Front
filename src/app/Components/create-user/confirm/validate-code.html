@@ -1,0 +1,29 @@
+<div class="my-10 mx-8">
+  <div class="text-center my-10">
+    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">Verifique su dirección de correo electrónico</h1>
+    <p *ngIf="!withCode" class="mt-6 text-lg leading-8 text-gray-600">
+      Hemos enviado un código a su dirección de correo electrónico <span class="inline-flex items-center rounded-md bg-gray-50 px-4 py-1 font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ email }}</span>. 
+      Por favor, ingrese el código proporcionado para confirmar y validar su dirección de correo electrónico.
+    </p>
+    <div *ngIf="!loading; else loadingSpinner">
+      <div class="my-6">
+        <input type="text" id="codeUsr" pFocusTrap [(ngModel)]="code" placeholder="Pegue aquí el código que recibio de su email" 
+              class="rounded-md border-0 border-neutral-100 bg-neutral-100 py-4 px-8 w-full 
+                  text-lg text-center text-gray-900 shadow-sm placeholder:text-gray-400
+                  focus:bg-white focus:outline-none focus:ring focus:border-blue-500
+                  sm:leading-6" />
+      </div>
+      <div class="mt-10 flex items-center justify-center gap-x-6 mb-10">
+        <button (click)="onPrevPage()" pButton pRipple type="button" label="Atrás" class="p-button-outlined p-button-secondary" title="Atrás"></button>
+        <button (click)="onValidateCode()" pButton pRipple type="button" label="Validar" icon="pi pi-check" iconPos="right" class="p-button-raised p-button-info" title="Validar"></button>
+      </div>
+    </div>
+    <ng-template #loadingSpinner>
+      <div class="flex justify-center my-4">
+        <p-progressSpinner styleClass="!w-8 !h-8" strokeWidth="8"></p-progressSpinner>
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+      </div>
+    </ng-template>
+    <div class="pb-8"></div>
+  </div>
+</div>

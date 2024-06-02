@@ -1,0 +1,130 @@
+<div class="mb-10 w-full px-6 lg:px-8 rounded-lg">
+  <p-toast></p-toast>
+  <p-card>
+    <ng-template pTemplate="title"> Validar Persona </ng-template>
+    <ng-template pTemplate="subtitle">  </ng-template>
+    <ng-template pTemplate="content">
+      <p-blockUI [target]="pnl" [blocked]="loading" styleClass="h-screen" [autoZIndex]="true">
+        <i class="pi pi-lock text-5xl"></i>
+      </p-blockUI>
+      <p-panel #pnl header="Datos de cuenta">
+        <div class="grid grid-cols-8 gap-4">
+          <div class="col-span-8 sm:col-span-2">
+            <label for="firstName" class="block mb-2 text-lg font-medium font-body text-gray-800">Nombre</label>
+            <input #firstName="ngModel" id="firstName" type="text" pInputText autocomplete="given-name"
+              aria-required="true" required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="userData.firstName" title="Nombre"
+              [ngClass]="{ 'ng-dirty': (firstName.invalid && submitted) || (firstName.dirty && firstName.invalid) }" />
+            <small class="p-error"
+              *ngIf="(firstName.invalid && submitted) || (firstName.dirty && firstName.invalid)">Debe ingresar
+              Nombre.</small>
+          </div>
+          <div class="col-span-8 sm:col-span-2">
+            <label for="middleName" class="block mb-2 text-lg font-medium font-body text-gray-800">Segundo
+              Nombre</label>
+            <input #middleName="ngModel" id="middleName" type="text" pInputText autocomplete="additional-name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="kycData.middleName" title="Segundo Nombre" />
+          </div>
+          <div class="col-span-8 sm:col-span-2">
+            <label for="lastName" class="block mb-2 text-lg font-medium font-body text-gray-800">Primer Apellido</label>
+            <input #lastName="ngModel" id="lastName" type="text" pInputText autocomplete="family-name"
+              aria-required="true" required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="userData.lastName" title="Apellido"
+              [ngClass]="{ 'ng-dirty': (lastName.invalid && submitted) || (lastName.dirty && lastName.invalid) }" />
+            <small class="p-error" *ngIf="(lastName.invalid && submitted) || (lastName.dirty && lastName.invalid)">Debe
+              ingresar
+              Primer Apellido.</small>
+          </div>
+          <div class="col-span-8 sm:col-span-2">
+            <label for="secondSurname" class="block mb-2 text-lg font-medium font-body text-gray-800">Segundo
+              Apellido</label>
+            <input #secondSurname="ngModel" id="secondSurname" type="text" pInputText
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="kycData.secondSurname" title="Segundo Apellido" />
+          </div>
+          <div class="col-span-8 sm:col-span-3">
+            <label for="documentType" class="block mb-2 text-lg font-medium font-body text-gray-800">Tipo
+              Identificación</label>
+            <p-dropdown #documentType="ngModel" id="documentType" [options]="IdentificationTypes"
+              [(ngModel)]="kycData.documentType" optionLabel="description" [filter]="true" filterBy="description"
+              [showClear]="true" optionValue="code" placeholder="Seleccione tipo de identificación"
+              styleClass="w-full p-1.5">
+            </p-dropdown>
+            <small class="p-error"
+              *ngIf="(documentType.invalid && submitted) || (documentType.dirty && documentType.invalid)">Debe ingresar
+              tipo de identifación.</small>
+          </div>
+          <div class="col-span-8 sm:col-span-3">
+            <label for="documentNumber" class="block mb-2 text-lg font-medium font-body text-gray-800">Nº
+              Identificación</label>
+            <input #documentNumber="ngModel" id="documentNumber" type="text" pInputText aria-required="true" required
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="kycData.documentNumber" title="Nº Identificación"
+              [ngClass]="{ 'ng-dirty': (documentNumber.invalid && submitted) || (documentNumber.dirty && documentNumber.invalid) }" />
+            <small class="p-error"
+              *ngIf="(documentNumber.invalid && submitted) || (documentNumber.dirty && documentNumber.invalid)">Debe
+              ingresar
+              Nº Identificación.</small>
+          </div>
+          <div class="col-span-8 sm:col-span-2">
+            <label for="expiryDate" class="block mb-2 text-lg font-medium font-body text-gray-800">Fecha Expira</label>
+            <p-calendar inputId="expiryDate" [(ngModel)]="kycData.expiryDate" dateFormat="dd/mm/yy" class="w-full"
+              inputStyleClass="w-full p-4" styleClass="w-full"></p-calendar>
+          </div>
+
+          <div *ngFor="let photo of imageTypes" class="col-span-8 sm:col-span-2">
+            <div class="border border-gray-200 rounded-lg shadow p-1">
+              <div class="flex items-center h-16 p-4 mb-4 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 overflow-x-auto" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div [pTooltip]="photo.description" tooltipPosition="bottom">
+                  <p class="truncate"> {{ photo.description }}</p>
+                </div>
+              </div>
+
+              <div *ngIf="!photo.file" class="flex items-center justify-center w-full">
+                <label [for]="'dropzone-file-'+photo.code" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                        </svg>
+                        <p class="mb-2 text-sm text-center text-gray-500"><span class="font-semibold">Clic para cargar</span> o arrastre y suelte</p>
+                        <p class="text-xs text-gray-500">PNG, JPG o GIF</p>
+                    </div>
+                    <input [id]="'dropzone-file-'+photo.code" type="file" class="hidden" (change)="onFileSelect($event, photo.code)" accept="image/png, image/gif, image/jpeg" />
+                </label>
+              </div>
+
+              <div *ngIf="photo.file" class="flex flex-wrap p-2 items-center gap-3">
+                <img [src]="photo.file" alt="{{ photo.description }}" class="h-16 w-16" />
+
+                <div class="flex-1 flex flex-col gap-2 w-20 truncate">
+                  <span class="font-bold">{{ photo.data.name }}</span>
+                  <div class="flex items-center gap-2">
+                      <i class="pi pi-download text-sm"></i>
+                  </div>
+                </div>
+                <button pButton pRipple (click)="onDeleteImage(photo.code)"
+                  type="button" title="Borrar" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text"></button>
+              </div>
+              
+            </div>
+
+          </div>
+
+
+          <div class="col-span-8 mt-8 text-center font-medium font-sans">
+            <button (click)="nextPage()" pButton type="button" class="p-button-beezky"
+              label="Validar" icon="pi pi-check" [loading]="loading" title="Validar" ></button>
+          </div>
+
+        </div>
+      </p-panel>
+    </ng-template>
+  </p-card>
+</div>

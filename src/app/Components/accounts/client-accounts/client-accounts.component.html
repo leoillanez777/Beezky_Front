@@ -1,0 +1,225 @@
+<form [formGroup]="accountForm" (ngSubmit)="GetHistorical()" class="mt-10 bg-white border border-gray-200 rounded-lg shadow">
+  <div class="grid grid-cols-6 gap-4">
+    <div class="col-span-6 m-4">
+      
+      <p-dropdown formControlName="accountDDL" [options]="_accountList" optionLabel="accountNumber" 
+        (onChange)="ChangeData($event)" styleClass="w-full" [showClear]="true" placeholder="Cuentas Disponible">
+        <ng-template pTemplate="selectedItem">
+          <div class="flex align-items-center gap-2" *ngIf="selectedAccount">
+              <div>{{ selectedAccount.currency }} - {{ selectedAccount.accountNumber }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-account pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <div>{{ account?.currency }} - {{ account?.accountNumber }}</div>
+            </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+  </div>
+</form>
+
+
+<mat-card class="bg-white border border-gray-200 rounded-lg shadow mt-8">
+  <mat-card-header>
+    <mat-card-title>Resumen</mat-card-title>
+  </mat-card-header>
+
+  <div class="grid grid-cols-6 gap-8">
+    
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">Cuenta</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Nº: </span> {{ accountNumber }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">Balance</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Saldo disponible: </span> {{ accountBalance }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">Titular</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Nombre: </span> {{ accountName }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">No disponible</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Saldo No Disponible:</span> {{ accountNotAvailable }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">Moneda</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">{{ accountCurrency }}</span> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-span-6 sm:col-span-2">
+      <div class="w-full font-medium font-sans bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="bg-custom-blue rounded-t-lg py-6">
+          <p class="text-white pl-8 text-lg font-bold">Balance Neto:</p>
+        </div>
+        <div class="p-5 text-center">
+          <div class="flex items-center p-4 text-sm text-gray-800 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">Saldo Total:</span> {{ accountNetBalance }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+</mat-card>
+
+
+
+<mat-card class="bg-white border border-gray-200 rounded-lg shadow mt-8">
+  <mat-card-header>
+    <mat-card-title class="font-medium font-sans">Transacciones de la cuenta</mat-card-title>
+  </mat-card-header>
+  
+  <form [formGroup]="filterForm" (ngSubmit)="GetHistorical()">
+    <div class="grid grid-cols-6 gap-4">
+      <div class="col-span-6 sm:col-span-3">
+        <label for="pickerDesde" class="font-bold block mb-2"> Desde </label>
+        <p-calendar formControlName="startDate" inputId="pickerDesde" dateFormat="dd/mm/yy"
+          styleClass="w-full" inputStyleClass="w-full p-4 rounded-lg">
+        </p-calendar>
+      </div>
+      <div class="col-span-6 sm:col-span-3">
+        <label for="pickerHasta" class="font-bold block mb-2"> Hasta </label>
+        <p-calendar formControlName="endDate" inputId="pickerHasta" dateFormat="dd/mm/yy"
+          styleClass="w-full" inputStyleClass="w-full p-4 rounded-lg">
+        </p-calendar>
+      </div>
+      <div class="col-span-6 text-center">
+        <button type="submit" [disabled]="filterForm.invalid" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+          <svg class="w-5 h-5 me-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2.133 2.6 5.856 6.9L8 14l4 3 .011-7.5 5.856-6.9a1 1 0 0 0-.804-1.6H2.937a1 1 0 0 0-.804 1.6Z"/>
+          </svg>
+          Filtrar
+        </button>
+      </div>
+
+    </div>
+  </form>
+  
+  <div id="divTableTH">
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="transaction_date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+        <td mat-cell *matCellDef="let element"> {{element?.transaction_date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="confirmation_number">
+        <th mat-header-cell *matHeaderCellDef> No. Confirmacion </th>
+        <td mat-cell *matCellDef="let element"> {{element?.confirmation_number}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="transaction_description">
+        <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+        <td mat-cell *matCellDef="let element"> {{element?.transaction_description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="debit">
+        <th mat-header-cell *matHeaderCellDef> Debito </th>
+        <td mat-cell *matCellDef="let element"> {{element?.debit}} </td>
+
+      </ng-container>
+      <ng-container matColumnDef="credit">
+        <th mat-header-cell *matHeaderCellDef> Credito </th>
+        <td mat-cell *matCellDef="let element"> {{element?.credit}} </td>
+
+      </ng-container>
+      <ng-container matColumnDef="account_balance">
+        <th mat-header-cell *matHeaderCellDef> Balance </th>
+        <td mat-cell *matCellDef="let element"> {{element?.account_balance}} </td>
+
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[ 10 ]" showFirstLastButtons>
+    </mat-paginator>
+  </div>
+</mat-card>
+

@@ -1,0 +1,70 @@
+<div class="mt-10">
+  <p-toast></p-toast>
+  <p-card header="Profile" styleClass="rounded-lg shadow-lg shadow-blue-500/50">
+    <form [formGroup]="formGroup">
+      <div class="grid grid-cols-3 gap-2">
+        <div class="col-span-full order-1 sm:col-span-1 sm:order-2">
+          <div class="relative flex justify-center pb-4">
+            <div class=" w-48 rounded-full shadow-lg overflow-hidden">
+              <img class="w-48 h-48 object-fill object-center box-content" [src]="formGroup.get('avatar')?.value">
+            </div>
+            <div class="absolute -bottom-4">
+              <button (click)="fileInput.click()" pButton pRipple type="button" class="p-button-beezky p-button-rounded" icon="pi pi-pencil"
+                title="Cambiar foto"></button>
+                <input #fileInput (change)="onFileSelected($event)" type="file" class="hidden" title="Subir foto" accept="image/png, image/gif, image/jpeg">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-span-full order-2 sm:col-span-2 sm:order-1">
+          <div class="sm:hidden">
+            <p-divider></p-divider>
+          </div>
+
+          <div class="grid grid-cols-6 gap-4">
+            <div class="col-span-full sm:col-span-3">
+              <label for="firstName" class="block mb-2 text-lg font-medium font-body text-gray-800">Nombre:</label>
+              <input pInputText type="text" id="firstName" formControlName="firstName" aria-required="true" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4" />
+            </div>
+            <div class="col-span-full sm:col-span-3">
+              <label for="middleName" class="block mb-2 text-lg font-medium font-body text-gray-800">Segundo
+                Nombre:</label>
+              <input pInputText type="text" id="middleName" formControlName="middleName"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4" />
+            </div>
+            <div class="col-span-full sm:col-span-3">
+              <label for="lastName" class="block mb-2 text-lg font-medium font-body text-gray-800">Apellido:</label>
+              <input pInputText type="text" id="lastName" formControlName="lastName" aria-required="true" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4" />
+            </div>
+            <div class="col-span-full sm:col-span-3">
+              <label for="secondSurName" class="block mb-2 text-lg font-medium font-body text-gray-800">Segundo
+                Apellido:</label>
+              <input pInputText type="text" id="secondSurName" formControlName="secondSurName"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4" />
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="mt-10 col-span-full order-3 text-center">
+          <p-divider><i class="pi pi-lock mr-2"></i><span class="font-semibold">Seguridad</span></p-divider>
+          <div class="flex flex-row">
+            <div>
+              <p-checkbox formControlName="loginWith2FA" [binary]="true" inputId="Login2FA"></p-checkbox>
+              <label for="Login2FA"> Autenticación con 2 factores.</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 col-span-full order-last text-center">
+          <button (click)="postUserInfo()" pButton type="button" class="p-button-beezky p-button-rounded text-xl" 
+            icon="pi pi-save" label="Grabar" title="Grabar" [loading]="loading"></button>
+        </div>
+
+      </div>
+    </form>
+  </p-card>
+</div>

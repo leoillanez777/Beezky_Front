@@ -1,0 +1,323 @@
+ <div class="flex min-h-full w-full flex-col justify-center px-1 sm:px-6 py-12 lg:px-8 rounded-lg">
+    <p-toast></p-toast>
+    <div class="content-fluid">
+        <h1 class="font-medium font-sans text-xl ml-2">Completar datos</h1>
+        <p class="text-sm text-gray-400 ml-2">Para poder ser cliente de Beezky Cash, se debe completar las pestañas Personal y Laboral</p>
+        <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="mt-8 w-full">
+            <p-tabView>
+                <p-tabPanel>
+                    <ng-template pTemplate="header" class="flex">
+                        <i *ngIf="!loading[0]" class="pi pi-user"></i>
+                        <svg *ngIf="loading[0]" aria-hidden="true" class="w-5 h-5 text-white me-2 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                        </svg>
+                        <span class="ml-2">Personales</span>
+                    </ng-template>
+                    <div class="grid grid-cols-8 gap-8 mt-8">
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="first_name" class="font-medium block mb-2"> Primer Nombre </label>
+                            <input id="first_name" formControlName="FirstName" placeholder="Nombre" type="text" pInputText 
+                                aria-required="true" required autocomplete="given-name" class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="(FirstName?.hasError('required') && submitted) || (FirstName?.dirty && FirstName?.hasError('required'))">
+                                Debe ingresar el nombre.
+                            </small>
+                            <small class="p-error" *ngIf="FirstName?.hasError('maxlength')">
+                                El nombre no debe exceder los 15 caracteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="middle_name" class="font-medium block mb-2"> Segundo Nombre </label>
+                            <input id="middle_name" formControlName="MiddleName" placeholder="Segundo Nombre" type="text" pInputText 
+                                autocomplete="additional-name" class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="MiddleName?.hasError('maxlength')">
+                                El segundo nombre no debe exceder los 15 caracteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="last_name" class="font-medium block mb-2"> Primer Apellido </label>
+                            <input id="last_name" formControlName="LastName" placeholder="Apellido" type="text" pInputText 
+                                aria-required="true" required autocomplete="family-name" class="rounded-lg w-full p-4 font-medium" />
+                                <small class="p-error" *ngIf="(LastName?.hasError('required') && submitted) || (LastName?.dirty && LastName?.hasError('required'))">
+                                Debe ingresar el apellido.
+                            </small>
+                            <small class="p-error" *ngIf="LastName?.hasError('maxlength')">
+                                El apellido no debe exceder los 15 caracteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="second_surname" class="font-medium block mb-2"> Segundo Apellido </label>
+                            <input id="second_surname" formControlName="SecondSurname" placeholder="Segundo apellido" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="SecondSurname?.hasError('maxlength')">
+                                El apellido no debe exceder los 15 caracteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="date_of_birth" class="font-medium block mb-2"> Fecha de Nacimiento </label>
+                            <p-calendar inputId="date_of_birth" formControlName="DateOfBirth" dateFormat="dd/mm/yy"
+                                styleClass="w-full" inputStyleClass="w-full p-4 rounded-lg">
+                            </p-calendar>
+                            <small class="p-error" *ngIf="(DateOfBirth?.hasError('required') && submitted) || (DateOfBirth?.dirty && DateOfBirth?.hasError('required'))">
+                                Debe ingresar su fecha de nacimiento.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="identification_type" class="font-medium block mb-2"> Tipo Identificación </label>
+                            <p-dropdown inputId="identification_type" formControlName="IdentificationType" [options]="idTypeList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione tipo de identificación" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(IdentificationType?.hasError('required') && submitted) || (IdentificationType?.dirty && IdentificationType?.hasError('required'))">
+                                Debe ingresar tipo identificación.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="identification" class="font-medium block mb-2"> Nº Identificación </label>
+                            <input id="identification" formControlName="Identification" placeholder="Número de identifación" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="(Identification?.hasError('required') && submitted) || (Identification?.dirty && Identification?.hasError('required'))">
+                                El nº de identificación es obligatorio.
+                            </small>
+                            <small class="p-error" *ngIf="Identification?.hasError('maxlength')">
+                                El nº de identifación no debe exceder los 16 caracteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="identification_expiration_date" class="font-medium block mb-2"> Fecha Expira </label>
+                            <p-calendar inputId="identification_expiration_date" formControlName="IdentificationExpirationDate" dateFormat="dd/mm/yy"
+                                styleClass="w-full" inputStyleClass="w-full p-4 rounded-lg">
+                            </p-calendar>
+                            <small class="p-error" *ngIf="(IdentificationExpirationDate?.hasError('required') && submitted) || (IdentificationExpirationDate?.dirty && IdentificationExpirationDate?.hasError('required'))">
+                                Debe ingresar fecha que expira su identifación.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="mobile_phone_number" class="font-medium block mb-2"> Teléfono Celular </label>
+                            <input id="mobile_phone_number" formControlName="MobilePhoneNumber" placeholder="Celular" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="(MobilePhoneNumber?.hasError('required') && submitted) || (MobilePhoneNumber?.dirty && MobilePhoneNumber?.hasError('required'))">
+                                El teléfono es obligatorio.
+                            </small>
+                            <small class="p-error" *ngIf="MobilePhoneNumber?.hasError('maxlength')">
+                                El teléfono no debe exceder los 11 carácteres.
+                            </small>
+                            <small class="p-error" *ngIf="MobilePhoneNumber?.hasError('pattern')">
+                                Solo se permite números.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="email" class="font-medium block mb-2"> Email </label>
+                            <input id="email" formControlName="Email" placeholder="Correo electrónico" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="(Email?.hasError('required') && submitted) || (Email?.dirty && Email?.hasError('required'))">
+                                El E-mail es obligatorio.
+                            </small>
+                            <small class="p-error" *ngIf="Email?.hasError('maxlength')">
+                                El E-mail no debe exceder los 100 carácteres.
+                            </small>
+                            <small class="p-error" *ngIf="Email?.hasError('email')">
+                                El formato del e-mail no es válido.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="country_of_birth" class="font-medium block mb-2"> País de Nacimiento </label>
+                            <p-dropdown inputId="country_of_birth" formControlName="CountryOfBirth" [options]="countriesList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione país de nacimiento" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(CountryOfBirth?.hasError('required') && submitted) || (CountryOfBirth?.dirty && CountryOfBirth?.hasError('required'))">
+                                Debe ingresar país de nacimiento.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="nationality" class="font-medium block mb-2"> Nacionalidad </label>
+                            <p-dropdown inputId="nationality" formControlName="Nationality" [options]="countriesList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione nacionalidad" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(Nationality?.hasError('required') && submitted) || (Nationality?.dirty && Nationality?.hasError('required'))">
+                                Debe ingresar nacionalidad.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="country_of_residence" class="font-medium block mb-2"> País de Residencia </label>
+                            <p-dropdown inputId="country_of_residence" formControlName="CountryOfResidence" [options]="countriesList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione país de residencia" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(CountryOfResidence?.hasError('required') && submitted) || (CountryOfResidence?.dirty && CountryOfResidence?.hasError('required'))">
+                                Debe ingresar país de residencia.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="second_nationality" class="font-medium block mb-2"> Segunda Nacionalidad </label>
+                            <p-dropdown inputId="second_nationality" formControlName="SecondNationality" [options]="countriesList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Segunda nacionalidad" styleClass="w-full p-1">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="geographic_location" class="font-medium block mb-2"> Ubicación Geográfica </label>
+                            <p-dropdown inputId="geographic_location" formControlName="GeographicLocation" [options]="geoLocationList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione ubicación geográfica" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(GeographicLocation?.hasError('required') && submitted) || (GeographicLocation?.dirty && GeographicLocation?.hasError('required'))">
+                                Debe ingresar ubicación geográfica.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="home_address_line1" class="font-medium block mb-2"> Dirección Línea 1 </label>
+                            <input id="home_address_line1" formControlName="HomeAddressLine1" placeholder="Dirección Línea 1" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="(HomeAddressLine1?.hasError('required') && submitted) || (HomeAddressLine1?.dirty && HomeAddressLine1?.hasError('required'))">
+                                Debe ingresar dirección.
+                            </small>
+                            <small class="p-error" *ngIf="HomeAddressLine1?.hasError('maxlength')">
+                                No debe exceder los 35 carácteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="home_address_line2" class="font-medium block mb-2"> Dirección Línea 2 </label>
+                            <input id="home_address_line2" formControlName="HomeAddressLine2" placeholder="Dirección Línea 2" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="HomeAddressLine2?.hasError('maxlength')">
+                                No debe exceder los 35 carácteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <label for="home_address_line3" class="font-medium block mb-2"> Dirección Línea 3 </label>
+                            <input id="home_address_line3" formControlName="HomeAddressLine3" placeholder="Dirección Línea 3" type="text" pInputText 
+                                class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="HomeAddressLine3?.hasError('maxlength')">
+                                No debe exceder los 35 carácteres.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="person_type" class="font-medium block mb-2"> Tipo persona </label>
+                            <p-dropdown inputId="person_type" formControlName="PersonType" [options]="personTypeList"
+                                optionLabel="description" optionValue="code" styleClass="w-full p-1">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="sex" class="font-medium block mb-2"> Sexo </label>
+                            <p-dropdown inputId="sex" formControlName="Sex" [options]="sexList" [showClear]="true"
+                               placeholder="Seleccione sexo." optionLabel="description" optionValue="code" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(Sex?.hasError('required') && submitted) || (Sex?.dirty && Sex?.hasError('required'))">
+                                Debe seleccionar sexo.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="marital_status" class="font-medium block mb-2"> Estado Civil </label>
+                            <p-dropdown inputId="marital_status" formControlName="MaritalStatus" [options]="maritalStatusList" [showClear]="true"
+                                placeholder="Seleccione estado civil" optionLabel="description" optionValue="code" 
+                                [filter]="true" filterBy="description" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(MaritalStatus?.hasError('required') && submitted) || (MaritalStatus?.dirty && MaritalStatus?.hasError('required'))">
+                                Debe seleccionar estado civil.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-2">
+                            <label for="title" class="font-medium block mb-2"> Profesión </label>
+                            <p-dropdown inputId="title" formControlName="Title" [options]="titleList" [showClear]="true"
+                                placeholder="Seleccione profesión" optionLabel="description" optionValue="code" 
+                                [filter]="true" filterBy="description" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(Title?.hasError('required') && submitted) || (Title?.dirty && Title?.hasError('required'))">
+                                Debe seleccionar profesión.
+                            </small>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                <input formControlName="IsPep" id="is_pep" type="checkbox" value="" name="bordered-checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                                <label for="is_pep" class="w-full py-4 ms-2 text-lg font-sans text-gray-900">
+                                    Es una persona expuesta públicamente
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-span-8 sm:col-span-4">
+                            <div class="flex items-center ps-4 border border-gray-200 rounded">
+                                <input formControlName="IsPnp" id="is_pnp" type="checkbox" value="" name="bordered-checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 focus:ring-2">
+                                <label for="is_pnp" class="w-full py-4 ms-2 text-lg font-sans text-gray-900">
+                                    Es una persona notoriamente pública
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+                <p-tabPanel>
+                    <ng-template pTemplate="header" class="flex">
+                        <svg *ngIf="!loading[1]" class="w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M1 10c1.5 1.5 5.25 3 9 3s7.5-1.5 9-3m-9-1h.01M2 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1ZM14 5V3a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2h8Z"/>
+                        </svg>
+                        <svg *ngIf="loading[1]" aria-hidden="true" class="w-5 h-5 text-white me-2 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                        </svg>
+                        <span class="ml-2">Laborales</span>
+                    </ng-template>
+                    
+                    <div class="grid grid-cols-6 gap-4 mt-8">
+                        <div class="col-span-6">
+                            <label for="economic_activity" class="font-medium block mb-2"> Actividad Económica </label>
+                            <p-dropdown inputId="economic_activity" formControlName="EconomicActivity" [options]="economyActList"
+                                optionLabel="description" optionValue="code" [filter]="true" filterBy="description" [showClear]="true"
+                                placeholder="Seleccione actividad económica" styleClass="w-full p-1">
+                            </p-dropdown>
+                            <small class="p-error" *ngIf="(EconomicActivity?.hasError('required') && submitted) || (EconomicActivity?.dirty && EconomicActivity?.hasError('required'))">
+                                Debe ingresar actividad económica.
+                            </small>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="employer" class="font-medium block mb-2"> Empresa </label>
+                            <input id="employer" formControlName="Employer" placeholder="Empresa" type="text" pInputText class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="Employer?.hasError('maxlength')">
+                                No debe exceder los 30 carácteres.
+                            </small>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="salary" class="font-medium block mb-2"> Salario </label>
+                            <p-inputNumber inputId="salary" formControlName="Salary" mode="currency" currency="USD" locale="en-US" 
+                                styleClass="w-full" inputStyleClass="w-full p-4" class="w-full">
+                            </p-inputNumber>
+                            <small class="p-error block" *ngIf="Salary?.hasError('min')">
+                                El salario en la empresa donde trabaja (si corresponde) o los ingresos mensuales.
+                            </small>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="occupation_work" class="font-medium block mb-2"> Ocupación </label>
+                            <p-dropdown inputId="occupation_work" formControlName="Occupation" [options]="occupationList" [showClear]="true"
+                                placeholder="Ocupación" optionLabel="description" optionValue="code" 
+                                [filter]="true" filterBy="description" styleClass="w-full p-1">
+                            </p-dropdown>
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="work_phone_number" class="font-medium block mb-2"> Teléfono de Trabajo </label>
+                            <input id="work_phone_number" formControlName="WorkPhoneNumber" placeholder="Teléfono de trabajo" type="tel" pInputText class="rounded-lg w-full p-4 font-medium" />
+                            <small class="p-error" *ngIf="WorkPhoneNumber?.hasError('maxlength')">
+                                No debe exceder los 11 carácteres.
+                            </small>
+                        </div>
+                    </div>
+
+                </p-tabPanel>
+            </p-tabView>
+            <div class="text-center">
+                <button type="submit" [disabled]="LoadingAll" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+                    <svg *ngIf="!LoadingAll" class="w-5 h-5 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 8h6m-3 3V5m-6-.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z"/>
+                    </svg>
+                    <svg *ngIf="LoadingAll" aria-hidden="true" class="w-5 h-5 text-white me-2 animate-spin fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    Crear Cliente
+                </button>
+            </div>
+            
+        </form>
+      <router-outlet></router-outlet>
+  </div>
+</div>

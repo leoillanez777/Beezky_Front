@@ -1,0 +1,114 @@
+<div class="">
+  <p-toast></p-toast>
+  <p-card>
+    <ng-template pTemplate="title"> Crear Cuenta </ng-template>
+    <ng-template pTemplate="subtitle"> Por favor, ten en cuenta que es necesario contar con acceso a tu correo electrónico para poder validarlo. </ng-template>
+    <ng-template pTemplate="content">
+      <p-blockUI [target]="pnl" [blocked]="loading">
+        <i class="pi pi-lock text-5xl"></i>
+      </p-blockUI>
+      <p-panel #pnl header="Datos de cuenta">
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div class="sm:col-span-2">
+            <label for="emailAddress" class="block mb-2 text-lg font-medium font-body text-gray-800">Email</label>
+            <input #emailAddress="ngModel" id="email" type="email" required pInputText autocomplete="username"
+              aria-required="true"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="userData.emailAddress" title="Email"
+              [ngClass]="{ 'ng-dirty': (emailAddress.invalid && submitted) || (emailAddress.dirty && emailAddress.invalid) }" />
+            <small class="p-error"
+              *ngIf="(emailAddress.invalid && submitted) || (emailAddress.dirty && emailAddress.invalid)">Debe ingresar
+              correo.</small>
+          </div>
+          <div class="w-full">
+            <label for="firstName" class="block mb-2 text-lg font-medium font-body text-gray-800">Nombre</label>
+            <input #firstName="ngModel" id="firstName" type="text" 
+              aria-required="true" required  autocomplete="given-name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="userData.firstName"
+              [ngClass]="{ 'ng-dirty': (firstName.invalid && submitted) || (firstName.dirty && firstName.invalid) }" />
+            <small *ngIf="(firstName.invalid && submitted) || (firstName.dirty && firstName.invalid)" class="p-error">El
+              nombre es requerido.</small>
+          </div>
+          <div class="w-full">
+            <label for="lastName" class="block mb-2 text-lg font-medium font-body text-gray-800">Apellido</label>
+            <input #lastName="ngModel" id="lastName" type="text" pInputText 
+              aria-required="true" required autocomplete="family-name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-sky-600 focus:border-sky-600 block w-full p-4"
+              [(ngModel)]="userData.lastName"
+              [ngClass]="{ 'ng-dirty': (lastName.invalid && submitted) || (lastName.dirty && lastName.invalid) }" />
+            <small class="p-error"
+              *ngIf="(lastName.invalid && submitted) || (lastName.dirty && lastName.invalid)">Apellido es
+              requerido.</small>
+          </div>
+          <div class="w-full">
+            <label for="password" class="block mb-2 text-lg font-medium text-gray-800">Contraseña</label>
+            <p-password #password="ngModel" inputId="password" [toggleMask]="true" class="p-inputtext-lg"
+              [(ngModel)]="userData.password"
+              [ngClass]="{ 'ng-dirty': (password.invalid && submitted) || (password.dirty && password.invalid) }">
+
+              <ng-template pTemplate="header">
+                <h6>Elige una contraseña</h6>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <p class="mt-2">Sugerencias</p>
+                <ul class="pl-2 ml-2 mt-0 leading-6">
+                  <li>Al menos una minúscula</li>
+                  <li>Al menos una mayúscula</li>
+                  <li>Al menos un número</li>
+                  <li>Mínimo 8 caracteres</li>
+                </ul>
+              </ng-template>
+
+            </p-password>
+            <small class="p-error" *ngIf="(password.invalid && submitted) || (password.dirty && password.invalid)">Debe
+              ingresar contraseña.</small>
+          </div>
+          <div class="w-full">
+            <label for="confirmPassword" class="block mb-2 text-lg font-medium font-body text-gray-800">Confirmar
+              Contraseña</label>
+            <p-password #confirmPassword="ngModel" inputId="confirmPassword" [toggleMask]="true" class="p-inputtext-lg"
+              [(ngModel)]="userData.confirmPassword"
+              [ngClass]="{ 'ng-dirty': (confirmPassword.invalid && submitted) || (confirmPassword.dirty && confirmPassword.invalid) }">
+
+              <ng-template pTemplate="header">
+                <h6>Elige una contraseña</h6>
+              </ng-template>
+              <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <p class="mt-2">Sugerencias</p>
+                <ul class="pl-2 ml-2 mt-0 leading-6">
+                  <li>Al menos una minúscula</li>
+                  <li>Al menos una mayúscula</li>
+                  <li>Al menos un número</li>
+                  <li>Mínimo 8 caracteres</li>
+                </ul>
+              </ng-template>
+            </p-password>
+            <small class="p-error"
+              *ngIf="(confirmPassword.invalid && submitted) || (confirmPassword.dirty && confirmPassword.invalid)">Debe
+              ingresar contraseña.</small>
+          </div>
+        </div>
+      </p-panel>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <div class="text-center">
+        <p-progressSpinner *ngIf="loading;else create_account" styleClass="w-4rem h-4rem" strokeWidth="8"
+          fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+        <ng-template #create_account>
+          <button (click)="nextPage()"
+            class="text-white bg-gradient-to-r mt-10 from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
+            <svg class="w-5 h-5 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 20 18">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 8h6m-3 3V5m-6-.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z" />
+            </svg>
+            Crear Cuenta
+          </button>
+        </ng-template>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

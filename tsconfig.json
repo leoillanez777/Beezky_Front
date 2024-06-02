@@ -1,0 +1,37 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    // "outDir": "./lib/cjs/",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    // "declaration": false,
+    "declaration": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    // "target": "es2017",
+    "target": "es5",
+    // "module": "es2015",
+    "module": "commonjs",
+    "lib": [ "es2015", "dom" ],
+    "noImplicitAny": true,
+    "allowJs": true,
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "include": ["src/*.ts*", "src/**/*.ts*", "src/**/**/*.ts","src/**/**/**/*.ts"],
+  "exclude": ["node_modules", "dist", "lib"]
+}

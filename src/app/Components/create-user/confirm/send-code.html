@@ -1,0 +1,30 @@
+<div class="my-10 mx-8">
+  <div class="flex flex-col gap-4">
+    <blockquote class="p-4 my-4 border-s-4 border-sky-300 bg-sky-50">
+      <p class="text-xl italic font-medium leading-relaxed text-gray-900">"Verifica tu cuenta de correo electrónico"</p>
+    </blockquote>
+    <p class="text-gray-600">
+      Para continuar, necesitamos verificar tu dirección de correo electrónico.
+    </p>
+    <p class="text-gray-600"> 
+      Por favor, revise su bandeja de entrada o carpeta de correo no deseado para encontrar el mensaje de verificación que le enviamos.
+    </p>
+    <p class="text-gray-600">
+      Si no recibe el correo electrónico en breve, no dude en reenviarlo.
+    </p>
+    <p>
+      <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-lg font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">{{ email }}</span>
+    </p>
+    <div *ngIf="!loading; else loadingSpinner" class="my-4 text-center">
+      <button (click)="onSendCode()" pButton pRipple type="button" 
+        label="Enviar código" icon="pi pi-envelope" iconPos="right" class="p-button-raised p-button-info" title="Enviar">
+      </button>
+    </div>
+    <ng-template #loadingSpinner>
+      <div class="flex justify-center my-4">
+        <p-progressSpinner styleClass="!w-8 !h-8" strokeWidth="8"></p-progressSpinner>
+        <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+      </div>
+    </ng-template>
+  </div>
+</div>

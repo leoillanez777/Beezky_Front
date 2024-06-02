@@ -1,0 +1,57 @@
+<div class="wrapper fadeInDown bg-login">
+  <p-toast></p-toast>
+  <div
+    class="flex h-6/12 w-full sm:w-4/12 flex-col justify-center px-6 py-12 lg:px-8 bg-blue-50/90 rounded-lg shadow-2xl shadow-blue-500/50">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-24 w-auto" src="/assets/img/logo.png" alt="Login">
+    </div>
+
+    <div class="mt-5 sm:mx-auto sm:w-full">
+      <form [formGroup]="form" class="space-y-6" (ngSubmit)="onLogin()">
+        <div>
+          <div class="mt-2">
+            <input type="text" id="login" pAutoFocus [autofocus]="true" formControlName="Usuario" placeholder="Usuario" class="rounded-md border-0 border-neutral-100 bg-neutral-100 py-4 px-8 w-full 
+                text-lg text-center text-gray-900 shadow-sm placeholder:text-gray-400
+                focus:bg-white focus:outline-none focus:ring focus:border-blue-500
+                sm:leading-6" required aria-required="true" />
+          </div>
+        </div>
+
+        <div>
+          <div *ngIf="!loading" class="flex items-center justify-end">
+            <div class="text-sm">
+              <a href="#" class="font-semibold text-sky-600 hover:text-sky-500">Olvidé Contraseña</a>
+            </div>
+          </div>
+          <div *ngIf="!loading" class="mt-2">
+            <input type="password" id="password" formControlName="Password" placeholder="Contraseña" class="rounded-md border-0 border-neutral-100 bg-neutral-100 py-4 px-8 w-full 
+                text-lg text-center text-gray-900 shadow-sm placeholder:text-gray-400
+                focus:bg-white focus:outline-none focus:ring focus:border-blue-500
+                sm:leading-6" required aria-required="true" />
+          </div>
+        </div>
+        
+        <div *ngIf="!loading; else loadingSpinner" class="flex justify-center">
+          <button type="submit"
+            class="flex w-10/12 justify-center rounded-md bg-sky-400 px-3 py-4 text-sm font-semibold 
+                    leading-6 text-white hover:bg-sky-500 shadow-lg shadow-sky-500/70
+                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">
+
+            ACCEDER
+          </button>
+        </div>
+        <ng-template #loadingSpinner>
+          <div class="flex justify-center">
+            <p-progressSpinner styleClass="!w-8 !h-8" strokeWidth="8"></p-progressSpinner>
+            <p-progressBar mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+          </div>
+        </ng-template>
+        
+      </form>
+
+      <p *ngIf="!loading" class="pt-10 text-center text-sm text-gray-500">
+        <a [routerLink]="'create-user'" class="font-semibold text-sky-600 hover:text-sky-500">Crear Cuenta</a>
+      </p>
+    </div>
+  </div>
+</div>
